@@ -60,7 +60,7 @@ base::Status NinjaLogParser::Parse(TraceBlobView blob) {
         return base::ErrStatus("Failed to parse ninja log header");
       header_parsed_ = true;
       auto version = base::CStringToUInt32(line.cur_token() + strlen(kHeader));
-      if (!version || *version != 5)
+      if (!version || *version < 5 || *version > 6)
         return base::ErrStatus("Unsupported ninja log version");
       continue;
     }
